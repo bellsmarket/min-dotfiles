@@ -70,8 +70,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( zshmarks )
-
+plugins=( zsh-syntax-highlighting zsh-autosuggestions zshmarks )
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -104,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias ..="cd ..;pwd"
 
-if type lsd &>/dev/null; then
+if command -v lsd &>/dev/null; then
     alias ls="lsd --date '+%Y/%m/%d %H:%M'"
     alias ll="lsd -la --date '+%Y/%m/%d %H:%M'"
     alias lll="lsd -la --date '+%Y/%m/%d %H:%M'"
@@ -119,7 +118,7 @@ else
 fi
 
 alias lld="ls -la|rg -v \"^-\" |rg -v \"^l\""
-alias llg="ls -la|rg -i $argv[1]"
+llg() { ls -la | rg -i "$1"; }
 alias llsym="ls -la|rg ^l"
 alias lt="ls --tree --depth 2"
 
@@ -162,9 +161,13 @@ else
 fi
 
 #Editor Application
-alias typora="open -a Typora $1"
+
+typora() { open -a Typora "$1"; }
 alias sublime="subl"
-alias cat="bat"
+
+if type bat &>/dev/null; then
+    alias cat="bat"
+fi
 
 # Charset Command
 alias str="strings"
@@ -188,12 +191,12 @@ alias mv='mv -i'
 alias gil="git log --date=format:\'%Y/%m/%d %H:%M:%S\'"
 alias gia='git add'
 alias gic='git commit'
-alias gicm='git commit -m {$1}'
+alias gicm='git commit -m "$1"'
 alias gish='git push'
 alias gill='git pull'
 alias gif='git fetch'
 alias gico='git checkout'
-alias giff='git diff {$1}'
+alias giff='git diff "$1"'
 alias gigg='git grep'
 alias gib='git branch -vv'
 alias gis='git switch'
@@ -207,22 +210,22 @@ alias tigg='tig grep'
 
 # Git Repo
 alias repo='gh repo list'
-alias clone='gh repo clone $argv'
+clone() { gh repo clone "$@"; }
 
-alias g="c"
-alias s="mark"
-alias d="delmark"
-alias p="marks"
-alias l="marks"
-
+alias g="jump"
+alias s="bookmark"
+alias d="deletemark"
+alias p="showmarks"
+alias l="showmarks"
 
 bindkey "^L" forward-word # Ctrl-l: forward-word (カーソルを次の単語の先頭に移動)
 bindkey "^H" backward-word # Ctrl-h: backward-word (カーソルを前の単語の先頭に移動)
 bindkey "^X" backward-kill-word # Ctrl-x: backward-kill-word (カーソルから単語の先頭まで削除)
 
-if type brew &>/dev/null; then
-   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if command -v brew &>/dev/null; then
+   FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
+   source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
    autoload -Uz compinit && compinit
- fi
-export "PATH=$PATH:$HOME/.composer/vendor/bin"
+fi
+ 
+export PATH="$PATH:$HOME/.composer/vendor/bin"

@@ -109,16 +109,3 @@ alias diff='diff -u'
 
 #Backup Command
 alias rsync="rsync -v"
-
-
-
-###################################################################
-###                         Key Bind                            ###
-###################################################################
-
-
-bind '"\C-l": forward-word'
-bind '"\C-h": backward-word'
-bind '"\Cx": backward-kill-word'
-
-
