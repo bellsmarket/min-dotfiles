@@ -226,6 +226,15 @@ alias d="delmark"
 alias p="marks"
 alias l="marks"
 
+#
+###################################################################
+###                         Key Bind                            ###
+###################################################################
+
+
+bindkey "^L" forward-word # Ctrl-l: forward-word (カーソルを次の単語の先頭に移動)
+bindkey "^H" backward-word # Ctrl-h: backward-word (カーソルを前の単語の先頭に移動)
+bindkey "^X" backward-kill-word # Ctrl-x: backward-kill-word (カーソルから単語の先頭まで削除)
 
 if type brew &>/dev/null; then
    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
