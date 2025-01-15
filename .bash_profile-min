@@ -1,0 +1,46 @@
+# export LANG=ja_JP.UTF-8
+
+if [ "$(uname)" == "Darwin" ]; then
+  echo "OSX"
+  export PS1='\[\033[02;32m\]\u@\H:\[\033[02;34m\]\w\$\[\033[00m\] '
+
+  export LSCOLORS="cxgxcxdxbxegedabagacad"
+  export LS_COLORS="di=32:ln=36:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  echo "Linux"
+  $(uname)
+
+  function nonzero_return() {
+    RETVAL=$?
+    [ $RETVAL -ne 0 ] && echo "$RETVAL"
+  }
+
+  export PS1="[\[\e[34m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\]]\\$\`nonzero_return\`\[\e[36m\]\w\[\e[m\] "
+  export PS4="\[\e[1;35m\]->\[\e[0m\] "
+
+  # export LSCOLORS="cxgxcxdxbxegedabagacad"
+  export LS_COLORS="di=35:ln=36:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+fi
+
+if [[ $- == *i* ]]; then
+    bind '"\C-l": forward-word'
+    bind '"\C-h": backward-word'
+    bind '"\Cx": backward-kill-word'
+fi
+
+
+export LESS_TERMCAP_mb=$'\E[01;31m' 
+export LESS_TERMCAP_md=$'\E[00;36m' 
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[00;30;41m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[00;35m' 
+
+export LESSCHARSET=utf-8
+
+
+if [ -f ~/.bashrc ] ; then
+. ~/.bashrc
+fi
+
