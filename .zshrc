@@ -100,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+
 alias ..="cd ..;pwd"
 
 if type lsd &>/dev/null; then
@@ -163,11 +165,6 @@ fi
 alias typora="open -a Typora $1"
 alias sublime="subl"
 alias cat="bat"
-alias atom=$(which pulsar)
-alias apm=$(which ppm)
-alias ppms="$(which ppm) search $1"
-alias ppmi="$(which ppm) install $argv"
-
 
 # Charset Command
 alias str="strings"
@@ -212,24 +209,11 @@ alias tigg='tig grep'
 alias repo='gh repo list'
 alias clone='gh repo clone $argv'
 
-#brew Command
-alias brewi='brew install {$1}'
-alias brewl='brew list'
-alias brews='brew search {$1}'
-alias brewu='brew unintall {$1}'
-
-
-
 alias g="c"
 alias s="mark"
 alias d="delmark"
 alias p="marks"
 alias l="marks"
-
-#
-###################################################################
-###                         Key Bind                            ###
-###################################################################
 
 
 bindkey "^L" forward-word # Ctrl-l: forward-word (カーソルを次の単語の先頭に移動)
