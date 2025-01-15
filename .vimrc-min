@@ -1,0 +1,128 @@
+"----------------------------------------------------------
+" Character code Setting
+"----------------------------------------------------------
+scriptencoding utf-8
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+set fileformats=unix,dos,mac
+set ambiwidth=double
+set clipboard+=unnamed
+set cmdheight=2
+set clipboard=unnamed
+
+"----------------------------------------------------------
+" Screen display Setting
+"----------------------------------------------------------
+set showmode
+set number
+set laststatus=2
+set cmdheight=2
+"set cursorline
+"set cursorcolumn
+set autoindent
+set noexpandtab
+set ruler
+set list listchars=tab:\|\
+set listchars=tab:･･,trail:･,eol:¬,extends:･,precedes:«,nbsp:%
+
+
+"----------------------------------------------------------
+" Search function Setting
+"----------------------------------------------------------
+set wrapscan
+set ignorecase
+set incsearch
+set hlsearch
+set shortmess-=S
+set noshowmode
+set nowritebackup
+set nobackup
+set wildmenu
+set history=1000
+
+
+
+"----------------------------------------------------------
+" Tab・Indent Setting
+"----------------------------------------------------------
+set tabstop=2
+set shiftwidth=2
+set autoindent
+set smartindent
+set expandtab
+set softtabstop=2
+set backspace=indent,eol,start
+
+
+"----------------------------------------------------------
+" Highlight Setting
+"----------------------------------------------------------
+hi Normal ctermfg=253
+hi String ctermfg=208
+hi Identifier ctermfg=cyan
+hi Function ctermfg=cyan
+hi Conditional ctermfg=cyan
+hi Repeat ctermfg=cyan
+hi Statement ctermfg=41
+hi Comment ctermfg=247
+hi Keyword ctermfg=red
+hi Boolean ctermfg=208
+hi Number ctermfg=220
+"Current CursorLine Color(Favorite Red=52 Orange=)
+hi CursorLine cterm=bold  ctermbg=52 term=underline
+hi LineNr ctermfg=253 ctermbg=25
+hi CursorLineNr cterm=bold ctermfg=25 ctermbg=253
+hi SpecialKey ctermfg=darkmagenta
+hi NonText ctermfg=darkmagenta
+
+
+
+"----------------------------------------------------------
+" Key mapping 
+"----------------------------------------------------------
+let mapleader = " "
+" <C-space>でのWの挙動を停止
+nnoremap <C-Space>  <Nop>
+
+nnoremap <C-a> <ESC>^
+nnoremap <C-e> <ESC>$
+inoremap <C-a> <ESC>^i
+inoremap <C-e> <ESC>$a
+vnoremap <C-a> ^
+vnoremap <C-e> $
+cnoremap <C-a> <Home>
+
+nnoremap <C-l> w
+nnoremap <C-h> b
+inoremap <C-l> <S-Right>
+inoremap <C-h> <S-Left>
+vnoremap <C-l> <S-Right>
+vnoremap <C-h> <S-Left>
+cnoremap <C-l> <S-Right>
+cnoremap <C-h> <S-Left>
+
+
+nnoremap <ESC><ESC> <C-w>o
+nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
+
+
+inoremap <C-space>  <c-x><c-f>
+
+" ファイル保存・ファイルを閉じる
+nnoremap <C-s>      :w<CR>:echo "Save => "expand("%")<CR>
+nnoremap <C-s><C-s> :w<CR>:q<CR>
+inoremap <C-s>      <ESC>:w<CR>:echo "Save => "expand("%")<CR>
+nnoremap <C-q><C-q> :q!<Enter>
+cnoremap <C-q><C-q>  q!<Enter>
+
+inoremap <silent> <C-c> <ESC>
+
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+
+inoremap <expr> <Tab>     pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab>   pumvisible() ? "\<C-p>" : "\<C-D>"
+
+inoremap <silent>jj <ESC>:w<CR>:echo "File Saved."<CR>
+

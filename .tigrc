@@ -1,0 +1,137 @@
+# tigrc
+
+############################################
+#            View Setting 
+############################################
+## Default 
+# set main-view = date author commit-title:graph=yes,refs=yes
+
+## main view（左端にコミットIDを表示する）
+set main-view = id date author:maxwidth=15 commit-title:graph=yes,refs=yes
+set editor-line-number = no
+
+set main-view = line-number:yes,interval=10 id date author:maxwidth=15 commit-title:graph=yes,refs=yes
+set main-view-date = custom
+set main-view-date-format = "  %Y-%m-%d %H:%M  "
+# set main-view-date-format = "  %Y-%m-%d %H:%M:%S  "
+
+## refs-view
+set refs-view = id:yes,color date author ref commit-title
+set refs-view-date = custom
+set refs-view-date-format = "%y/%m/%d %H:%M"
+
+## tree-view
+set tree-view = id:yes,color date author mode file-size file-name
+set tree-view-date = custom
+set tree-view-date-format = "%y/%m/%d %H:%M"
+
+## blame-view
+set blame-view = id:yes,color date author line-number:yes,interval=10 text
+set blame-view-date = custom
+set blame-view-date-format = "%y/%m/%d %H:%M"
+
+
+## status-view
+# set status-view = line-number:yes,interval=1 status file-name
+
+############################################
+##       Color Syntax HighLight
+############################################
+color   default           250             234
+# Purple
+# color cursor            231             57
+color   cursor            226             130
+color   cursor            231             130
+color   'Author '         15              default
+color   'Commit: '        242             default
+color   'Merge: '         45              default
+color   id                40              default
+color   date              242             default
+color   graph-commit      161             default
+color   status            15              default
+color   delimiter         90              default
+color   help-group        161             default
+color   main-tracked      105             default             bold
+color   title-focus       234             250
+color   title-blur        234             250
+color   diff-stat         45              default
+color   diff-index        14              default
+color   diff-add          40              default
+color   diff-del          161             default
+color   diff-chunk        190             default
+
+
+############################################
+##       Key Binding  
+############################################
+# How to bind ShortCut Key => Look at note -e tig.md
+
+## [-] generic bindings
+### View switching
+    # bind generic q none
+    # bind generic q view-main
+    bind generic G none
+# Vim 最上部 最下部移動
+    bind generic g move-first-line
+    bind generic G move-last-line
+# grep 変更
+    bind generic <Ctrl-g> view-grep 
+
+    bind generic H view-main 
+    ### View manipulation
+    ### Cursor navigation
+    ### Scrolling
+    ### Searching
+    ### Misc
+    ### Option toggling:
+
+
+## [-] search bindings
+    ### View manipulation
+    ### Searching
+
+## [-] main bindings
+bind main G move-last-line
+bind main F none 
+    ### Cursor navigation
+    ### Internal commands:
+    ### External commands:
+
+## [-] diff bindings
+bind diff + :toggle diff-context -1
+bind diff _ :toggle diff-context +1
+    ### Option toggling:
+    ### Internal commands:
+
+## [-] reflog bindings
+    ### Option toggling:
+    ### External commands:
+
+## [-] refs bindings
+    ### External commands:
+
+## [-] status bindings
+    # tig status上でpush
+    # ?：確認を求める。
+    # @：Git の内部操作。
+    # !：通常の外部コマンドを確認なしで実行。
+    bind status F ?!git fetch %(remote)              # fetch
+    bind status U ?!git pull %(remote)               # pull
+    bind status P ?!git push origin %(repo:head)     # push
+    bind status H ?@git checkout HEAD %(file)        # reset HARD for file
+    bind status D ?@rm -rf %(file)
+    ### View-specific actions
+    ### External commands:
+
+## [-] stage bindings
+    ### View-specific actions
+    ### Option toggling:
+    ### Internal commands:
+
+## [-] stash bindings
+    ### External commands:
+   ### bind status D ?git stash drop %(stash)
+
+
+## [-] pager bindings
+    ### Internal commands:
