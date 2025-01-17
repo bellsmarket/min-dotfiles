@@ -38,3 +38,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export AWS_REGION=ap-northeast-1
 export AWS_DEFAULT_REGION=ap-northeast-1
 
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C '/usr/local/bin/aws_completer' aws

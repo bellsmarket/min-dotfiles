@@ -141,7 +141,7 @@ if type nvim &>/dev/null; then
     alias vimdeinl="nvim $HOME/dotfiles/dein/dein_lazy.toml"
     alias vimbell="nvim $HOME/dotfiles/.config/nvim/colors/bellkai.vim"
     alias vimssh="nvim $HOME/.ssh/config"
-    alias vimbook="nvim $SDIRS"
+    alias vimbook="nvim $HOME/.bookmarks"
 else
     #Neo Vim / Vim Command
     alias vi="vim"
@@ -157,7 +157,7 @@ else
     alias vimdeinl="vim $HOME/dotfiles/dein/dein_lazy.toml"
     alias vimbell="vim $HOME/dotfiles/.config/nvim/colors/bellkai.vim"
     alias vimssh="vim $HOME/.ssh/config"
-    alias vimbook="vim $SDIRS"
+    alias vimbook="vim $HOME/.bookmarks"
 fi
 
 #Editor Application
