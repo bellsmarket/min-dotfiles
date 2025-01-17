@@ -117,7 +117,3 @@ output.even-row = ""
 
 [alias_dsn]
 # example_dsn = mysql://[user[:password]@][host][:port][/dbname]
-docker     = mysql://user@127.0.0.1:3306/:3306/
-mamp       = mysql://root:root@localhost:8889/
-docker     = mysql://user:pass@127.0.0.1:3306/db
-sailroot   = mysql://root:password@127.0.0.1/app
