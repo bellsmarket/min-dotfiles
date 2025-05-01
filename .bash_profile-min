@@ -1,26 +1,51 @@
 # export LANG=ja_JP.UTF-8
+#
 
-if [ "$(uname)" == "Darwin" ]; then
-  echo "OSX"
-  export PS1='\[\033[02;32m\]\u@\H:\[\033[02;34m\]\w\$\[\033[00m\] '
+color_prompt() {
+  local RESET="\[\e[0m\]"
 
-  export LSCOLORS="cxgxcxdxbxegedabagacad"
-  export LS_COLORS="di=32:ln=36:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  echo "Linux"
-  $(uname)
+  # ラベル
+  local LABEL="\[\e[1;34m\]【サイト名】${RESET}"
 
-  function nonzero_return() {
-    RETVAL=$?
-    [ $RETVAL -ne 0 ] && echo "$RETVAL"
-  }
+  # ユーザー名@ホスト名 ／カレントディレクトリ
+  local USER_HOST="\[\e[1;32m\]\u@\h"
+  local CUR_DIR="\[\e[1;34m\]\w"
 
-  export PS1="[\[\e[34m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\]]\\$\`nonzero_return\`\[\e[36m\]\w\[\e[m\] "
-  export PS4="\[\e[1;35m\]->\[\e[0m\] "
+  # Git ブランチを (branch) の形で。ブランチが無ければ空文字列
+  local GIT_COLOR="\[\e[31m\]"
+  local GIT_BRANCH='$(
+    b=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) && printf " (%s)" "$b"
+  )'
 
-  # export LSCOLORS="cxgxcxdxbxegedabagacad"
-  export LS_COLORS="di=35:ln=36:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-fi
+  # プロンプト末尾（$）と入力用スペース
+  local PROMPT_TAIL="\[\e[32m\]\$ "
+
+  # ───────────────────────────────────────────────
+  export PS1="${LABEL}${USER_HOST} ${CUR_DIR}${GIT_COLOR}${GIT_BRANCH}${RESET}${PROMPT_TAIL}"
+}
+
+color_prompt 
+# if [ "$(uname)" == "Darwin" ]; then
+#   echo "OSX"
+#   export PS1='\[\033[02;32m\]\u@\H:\[\033[02;34m\]\w\$\[\033[00m\] '
+#
+#   export LSCOLORS="cxgxcxdxbxegedabagacad"
+#   export LS_COLORS="di=32:ln=36:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+# elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+#   echo "Linux"
+#   $(uname)
+#
+#   function nonzero_return() {
+#     RETVAL=$?
+#     [ $RETVAL -ne 0 ] && echo "$RETVAL"
+#   }
+#
+#   export PS1="[\[\e[34m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\]]\\$\`nonzero_return\`\[\e[36m\]\w\[\e[m\] "
+#   export PS4="\[\e[1;35m\]->\[\e[0m\] "
+#
+#   # export LSCOLORS="cxgxcxdxbxegedabagacad"
+#   export LS_COLORS="di=35:ln=36:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+# fi
 
 if [[ $- == *i* ]]; then
     bind '"\C-l": forward-word'
@@ -29,13 +54,13 @@ if [[ $- == *i* ]]; then
 fi
 
 
-export LESS_TERMCAP_mb=$'\E[01;31m' 
-export LESS_TERMCAP_md=$'\E[00;36m' 
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[00;30;41m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[00;35m' 
+export LESS_TERMCAP_mb=$'\e[01;31m' 
+export LESS_TERMCAP_md=$'\e[00;36m' 
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[00;30;41m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[00;35m' 
 
 export LESSCHARSET=utf-8
 

@@ -65,6 +65,14 @@ alias gigg='git grep'
 alias gib='git branch'
 alias gis='git switch'
 
+if command -v tig >/dev/null 2>&1; then
+    alias tis='tig status'
+    alias til='tig log --date=format:"%Y/%m/%d %H:%M:%S"'
+    alias tia='tig add *'
+    alias tiff='tig show'
+    alias tigg='tig grep'
+fi
+
 
 #alias du="du -sh ./*/ 2>/dev/null"
 alias df="df -H"

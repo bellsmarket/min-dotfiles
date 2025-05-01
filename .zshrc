@@ -70,7 +70,9 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( zsh-syntax-highlighting zsh-autosuggestions zshmarks )
+plugins=( zsh-syntax-highlighting zsh-autosuggestions zshmarks docker docker-compose )
+fpath=(~/.zsh/completion $fpath)
+# autoload -Uz compinit && compinit -i
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -228,4 +230,13 @@ if command -v brew &>/dev/null; then
    autoload -Uz compinit && compinit
 fi
  
-export PATH="$PATH:$HOME/.composer/vendor/bin"
+#
+# fzf history
+function fzf-select-history() {
+    BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER" --reverse)
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
+
