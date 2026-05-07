@@ -8,7 +8,7 @@
 
 ## main view（左端にコミットIDを表示する）
 set main-view = id date author:maxwidth=15 commit-title:graph=yes,refs=yes
-set editor-line-number = no
+set editor-line-number = yes
 
 set main-view = line-number:yes,interval=10 id date author:maxwidth=15 commit-title:graph=yes,refs=yes
 set main-view-date = custom
@@ -93,6 +93,8 @@ color   diff-chunk        190             default
 ## [-] main bindings
 bind main G move-last-line
 bind main F none 
+bind generic E !tmux split-window -h "nvim +%(lineno) %(file)"
+bind generic B !tmux split-window -h "tig blame %(file)"
     ### Cursor navigation
     ### Internal commands:
     ### External commands:
@@ -120,6 +122,7 @@ bind diff _ :toggle diff-context +1
     bind status P ?!git push origin %(repo:head)     # push
     bind status H ?@git checkout HEAD %(file)        # reset HARD for file
     bind status D ?@rm -rf %(file)
+    bind status p view-diff
     ### View-specific actions
     ### External commands:
 

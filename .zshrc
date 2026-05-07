@@ -102,7 +102,23 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
+function color_prompt() {
+  # 色定義
+  local RESET="%f%k"  # 色リセット
+  local LABEL="%B%F{blue}【サイト名】%b"  # 太字青
+  local USER_HOST="%B%F{green}%n@%m%b"     # 太字緑（ユーザー@ホスト）
+  local CUR_DIR="%B%F{blue}%~%b"           # 太字青（カレントディレクトリ）
 
+  # Git ブランチ（なければ空）
+  local GIT_BRANCH='$(git symbolic-ref --quiet --short HEAD 2>/dev/null | sed "s/^/ (%F{red}/;s/$/%f)/")'
+
+  # プロンプト末尾
+  local PROMPT_TAIL="%F{green}$ %f"
+
+  PROMPT="${LABEL}${USER_HOST} ${CUR_DIR}${GIT_BRANCH}${RESET}${PROMPT_TAIL}"
+}
+
+# color_prompt
 alias ..="cd ..;pwd"
 
 if command -v lsd &>/dev/null; then
@@ -219,6 +235,10 @@ alias s="bookmark"
 alias d="deletemark"
 alias p="showmarks"
 alias l="showmarks"
+alias awsls="aws configure list-profiles"
+function awsch() {
+  aws configure --profile "$1"
+}
 
 bindkey "^L" forward-word # Ctrl-l: forward-word (カーソルを次の単語の先頭に移動)
 bindkey "^H" backward-word # Ctrl-h: backward-word (カーソルを前の単語の先頭に移動)
@@ -229,6 +249,13 @@ if command -v brew &>/dev/null; then
    source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
    autoload -Uz compinit && compinit
 fi
+
+if [[ $- == *i* ]]; then
+    bindkey '^L' forward-word
+    bindkey '^H' backward-word
+    bindkey '^X' backward-kill-word
+fi
+
  
 #
 # fzf history
@@ -239,4 +266,49 @@ function fzf-select-history() {
 }
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
+
+
+githead() {
+  git checkout HEAD "$@"
+}
+
+
+gitsoft() {
+  git reset --soft HEAD^
+}
+
+githard() {
+  git reset --hard HEAD
+}
+
+s3touch() {
+  aws s3 mb s3://"$1"
+}
+
+s3ls() {
+  aws s3 ls s3://"$1"
+}
+
+s3cp() {
+  aws s3 cp "$1" s3://"$2"
+}
+
+s3rm() {
+  aws s3 rm s3://"$1"
+}
+
+s3rm-bucket() {
+  aws s3 rb s3://"$1" --force
+}
+
+
+
+## AWS
+export AWS_REGION=ap-northeast-1
+export AWS_DEFAULT_REGION=ap-northeast-1
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C "$(which aws_completer)" aws
+
 
